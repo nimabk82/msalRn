@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">msalRn</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://purple-water-0475ec410.4.azurestaticapps.net/.well-known/assetlinks.json\" }]</string>
 </resources>

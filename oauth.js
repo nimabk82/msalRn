@@ -7,11 +7,16 @@ import {
 } from './oauthConfigStore';
 
 const AZURE_CLIENT_ID = MsalConfig.client_id;
+const redirectUri = __DEV__
+  ? 'msauth://com.msalrn/Xo8WBi6jzSxKDVR4drqm84yr9iU%3D'
+  : 'msauth://com.msalrn.prod/sJVrS8VPITLtYmSGP41hJl839nI%3D';
+
 const scope = `api://${AZURE_CLIENT_ID}/authorize`;
 const pca = new PublicClientApplication(
   {
     auth: {
       clientId: MsalConfig.client_id,
+      redirectUri,
       // authority: MsalConfig.redirect_uri,
     },
   },
