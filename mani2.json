@@ -1,0 +1,78 @@
+{
+  "id": "e7e8875b-91bc-478f-aedf-6fc6881cb4a2",
+  "acceptMappedClaims": null,
+  "accessTokenAcceptedVersion": null,
+  "addIns": [],
+  "allowPublicClient": null,
+  "appId": "d5a97498-a9f0-4007-9f4a-d16592145e79",
+  "appRoles": [],
+  "oauth2AllowUrlPathMatching": false,
+  "createdDateTime": "2023-12-27T19:18:49Z",
+  "description": null,
+  "certification": null,
+  "disabledByMicrosoftStatus": null,
+  "groupMembershipClaims": "None",
+  "identifierUris": ["api://d5a97498-a9f0-4007-9f4a-d16592145e79"],
+  "informationalUrls": {
+    "termsOfService": null,
+    "support": null,
+    "privacy": null,
+    "marketing": null
+  },
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoUrl": null,
+  "logoutUrl": null,
+  "name": "Dev-MySE-App",
+  "notes": null,
+  "oauth2AllowIdTokenImplicitFlow": true,
+  "oauth2AllowImplicitFlow": false,
+  "oauth2Permissions": [],
+  "oauth2RequirePostResponse": false,
+  "optionalClaims": {
+    "idToken": [
+      {
+        "name": "email",
+        "source": null,
+        "essential": false,
+        "additionalProperties": []
+      }
+    ],
+    "accessToken": [],
+    "saml2Token": []
+  },
+  "orgRestrictions": [],
+  "parentalControlSettings": {
+    "countriesBlockedForMinors": [],
+    "legalAgeGroupRule": "Allow"
+  },
+  "passwordCredentials": [],
+  "preAuthorizedApplications": [],
+  "publisherDomain": "nbokaei1982hotmail.onmicrosoft.com",
+  "replyUrlsWithType": [
+    {
+      "url": "http://localhost:3002",
+      "type": "Spa"
+    },
+    {
+      "url": "https://purple-water-0475ec410.4.azurestaticapps.net",
+      "type": "Spa"
+    }
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "signInUrl": null,
+  "signInAudience": "AzureADMyOrg",
+  "tags": ["apiConsumer", "webApp"],
+  "tokenEncryptionKeyId": null
+}

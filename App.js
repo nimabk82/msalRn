@@ -132,6 +132,7 @@ const linking = {
   prefixes: [
     // 'myapp://',
     'https://purple-water-0475ec410.4.azurestaticapps.net/',
+    'https://msal-react-demo.vercel.app/',
     //  +
     //   global.azureAccessToken,
   ],

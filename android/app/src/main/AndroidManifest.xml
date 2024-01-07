@@ -19,19 +19,37 @@
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-      <intent-filter>
+      <!-- <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
-      </intent-filter>
+      </intent-filter> -->
       <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" android:autoVerify="true"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data
             android:host="purple-water-0475ec410.4.azurestaticapps.net"
-            android:scheme="https" />
+            android:scheme="https"
+            />
+        <data
+        android:host="msal-react-demo.vercel.app"
+        android:scheme="https" 
+        />
+      </intent-filter>
+       <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" android:autoVerify="true"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data
+            android:host="purple-water-0475ec410.4.azurestaticapps.net"
+            android:scheme="https"
+            />
+        <data
+        android:host="msal-react-demo.vercel.app"
+        android:scheme="https" 
+        />
       </intent-filter>
     </activity>
     <activity android:name="com.microsoft.identity.client.BrowserTabActivity"
