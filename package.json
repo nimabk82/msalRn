@@ -11,18 +11,19 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.21.0",
-    "react": "17.0.2",
-    "react-native": "0.68.0",
-    "react-native-msal": "^4.0.4",
-    "react-native-webview": "^13.6.4",
     "@react-navigation/bottom-tabs": "^5.11.15",
     "@react-navigation/drawer": "^5.12.4",
     "@react-navigation/native": "^5.9.8",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^5.14.3",
-    "react-native-safe-area-context": "3.1.9",
+    "react": "17.0.2",
+    "react-native": "0.68.0",
+    "react-native-config": "^1.5.1",
     "react-native-gesture-handler": "^2.3.1",
-    "react-native-screens": "^2.15.2"
+    "react-native-msal": "^4.0.4",
+    "react-native-safe-area-context": "3.1.9",
+    "react-native-screens": "^2.15.2",
+    "react-native-webview": "^13.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

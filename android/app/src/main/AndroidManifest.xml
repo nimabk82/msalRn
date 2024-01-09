@@ -32,13 +32,15 @@
         <data
             android:host="purple-water-0475ec410.4.azurestaticapps.net"
             android:scheme="https"
+            android:pathPrefix="/mobile/"
             />
         <data
         android:host="msal-react-demo.vercel.app"
-        android:scheme="https" 
+        android:scheme="https"
+        android:pathPrefix="/mobile/" 
         />
       </intent-filter>
-       <intent-filter android:autoVerify="true">
+       <!-- <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" android:autoVerify="true"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
@@ -50,7 +52,7 @@
         android:host="msal-react-demo.vercel.app"
         android:scheme="https" 
         />
-      </intent-filter>
+      </intent-filter> -->
     </activity>
     <activity android:name="com.microsoft.identity.client.BrowserTabActivity"
         android:exported="true">
@@ -59,18 +61,18 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
         <data
-			android:host="com.msalrn.prod"
-			android:path="/sJVrS8VPITLtYmSGP41hJl839nI="
-			android:scheme="msauth" />
+        android:host="com.msalrn.prod"
+        android:path="/sJVrS8VPITLtYmSGP41hJl839nI="
+        android:scheme="msauth" />
       </intent-filter>
-        <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                        android:host="com.msalrn"
-                        android:path="/Xo8WBi6jzSxKDVR4drqm84yr9iU="
-                        android:scheme="msauth" />
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+        android:host="com.msalrn"
+        android:path="/Xo8WBi6jzSxKDVR4drqm84yr9iU="
+        android:scheme="msauth" />
         </intent-filter>
     </activity>
   </application>
