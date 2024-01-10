@@ -3,7 +3,7 @@ import MsalConfig from './android/app/src/main/res/raw/msal_config.json';
 import {
   loadAzureConfig,
   storeAzureConfig,
-  removeEventListener,
+  removeAzureConfig,
 } from './oauthConfigStore';
 
 const AZURE_CLIENT_ID = MsalConfig.client_id;
@@ -26,7 +26,7 @@ const pca = new PublicClientApplication(
 export default class Oauth {
   static async signInInteractively() {
     const params = {
-      scopes: [scope],
+      scopes: ['user.read'],
     };
 
     try {
@@ -64,7 +64,7 @@ export default class Oauth {
       }
     }
     const params = {
-      scopes: [scope],
+      scopes: ['user.read'],
       account: global.azureAccount,
       // forceRefresh: true,
     };
@@ -96,16 +96,19 @@ export default class Oauth {
       signoutFromBrowser: true,
     };
 
+    console.log(global.azureAccount, 'here');
+
     try {
       await pca.init();
       const result = await pca.signOut(params);
+      // removeAzureConfig();
       console.log(`signOut: ${JSON.stringify(result)}`);
       return result;
     } catch (error) {
       console.log(`signOut: ${error}`);
       return false;
     } finally {
-      removeEventListener();
+      removeAzureConfig();
     }
   }
 }

@@ -5,10 +5,25 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Text, View, Button} from 'react-native';
 import {loadAzureConfig, removeAzureConfig} from './oauthConfigStore';
 import Oauth from './oauth';
+import Config from 'react-native-config';
 
 function HomeScreen({navigation, setIsLogeddin}) {
-  const pressLink = () => {
-    Linking.openURL('https://login.live.com/');
+  const {apiBaseUrl} = Config;
+
+  const pressLink = hasToekn => {
+    // alert(apiBaseUrl);
+    // Linking.openURL('https://login.live.com/');
+
+    // if (hasToekn) {
+    //   Linking.openURL(
+    //     `https://proud-forest-0106ba110.4.azurestaticapps.net/test?token=${global.azureAccessToken}`,
+    //   );
+    //   return;
+    // }
+    Linking.openURL(`https://purple-water-0475ec410.4.azurestaticapps.net`);
+    // Linking.openURL(`http://192.168.4.23:3002`);
+
+    // Linking.openURL(`https://login.live.com/`);
   };
 
   return (
@@ -24,13 +39,18 @@ function HomeScreen({navigation, setIsLogeddin}) {
         <Button
           title="Logout"
           onPress={() => {
-            removeAzureConfig();
+            Oauth.signOut();
+            // removeAzureConfig();
             setIsLogeddin(false);
           }}
         />
       </View>
       <View style={{marginTop: 20}}>
-        <Button title="Press Link" onPress={pressLink} />
+        <Button
+          title="Press Link without token"
+          onPress={() => pressLink(false)}
+        />
+        <Button title="Press Link with token" onPress={() => pressLink(true)} />
       </View>
     </View>
   );
@@ -131,10 +151,8 @@ const linking = {
   // Prefixes accepted by the navigation container, should match the added schemes
   prefixes: [
     // 'myapp://',
-    'https://purple-water-0475ec410.4.azurestaticapps.net/',
-    'https://msal-react-demo.vercel.app/',
-    //  +
-    //   global.azureAccessToken,
+    'https://purple-water-0475ec410.4.azurestaticapps.net/mobile/',
+    'https://msal-react-demo.vercel.app/mobile/',
   ],
   // Route config to map uri paths to screens
   config: {
@@ -142,7 +160,6 @@ const linking = {
     // should match one of the available screens
     initialRouteName: 'Home',
     screens: {
-      // myapp://home -> HomeScreen
       Home: 'home',
       // myapp://details/1 -> DetailsScreen with param id: 1
       Details: 'details/:id',
@@ -155,13 +172,24 @@ const linking = {
 export default function App() {
   const [isLogeddin, setIsLogeddin] = React.useState(false);
 
+  // const {apiBaseUrl} = Config;
+
   React.useEffect(() => {
-    const aa = () => {
-      Linking.getInitialURL().then(ev => {
-        alert(ev);
-      });
+    const handleDeepLink = async () => {
+      const initialUrl = await Linking.getInitialURL();
+
+      if (initialUrl) {
+        const url = new URL(initialUrl);
+
+        // Check if the URL fragment contains the authorization code
+        // const authorizationCode = url.hash.replace('#code=', '');
+
+        // alert(authorizationCode);
+        Linking.openURL(initialUrl);
+      }
     };
-    Linking.addEventListener('url', aa);
+
+    Linking.addEventListener('url', handleDeepLink);
     return () => Linking.removeAllListeners('url');
   }, []);
 
@@ -173,7 +201,7 @@ export default function App() {
     };
 
     init();
-  }, [isLogeddin]);
+  }, []);
 
   console.log(linking);
   return (
