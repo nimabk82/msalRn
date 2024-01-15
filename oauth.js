@@ -16,6 +16,13 @@ const config = {
   clientId: 'd5a97498-a9f0-4007-9f4a-d16592145e79',
   redirectUrl: redirectUri,
   scopes: ['user.read', 'openid', 'profile', 'email', 'offline_access'],
+  additionalParameters: {
+    prompt: 'select_account', // This prompts the user to select an account
+  },
+  // serviceConfiguration: {
+  //   authorizationEndpoint: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize`,
+  //   tokenEndpoint: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
+  // },
 };
 export default class Oauth {
   static async signInInteractively() {
