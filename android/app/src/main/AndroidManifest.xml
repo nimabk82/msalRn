@@ -1,4 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.msalrn">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.msalrn">
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <application
@@ -19,12 +21,6 @@
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-      <!-- <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="myapp"/>
-      </intent-filter> -->
       <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" android:autoVerify="true"/>
         <category android:name="android.intent.category.DEFAULT"/>
@@ -40,40 +36,26 @@
         android:pathPrefix="/mobile/" 
         />
       </intent-filter>
-       <!-- <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" android:autoVerify="true"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data
-            android:host="purple-water-0475ec410.4.azurestaticapps.net"
-            android:scheme="https"
-            />
-        <data
-        android:host="msal-react-demo.vercel.app"
-        android:scheme="https" 
-        />
-      </intent-filter> -->
     </activity>
-    <activity android:name="com.microsoft.identity.client.BrowserTabActivity"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data
-        android:host="com.msalrn.prod"
-        android:path="/sJVrS8VPITLtYmSGP41hJl839nI="
-        android:scheme="msauth" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data
-        android:host="com.msalrn"
-        android:path="/Xo8WBi6jzSxKDVR4drqm84yr9iU="
-        android:scheme="msauth" />
-        </intent-filter>
-    </activity>
+     <activity
+        android:name="net.openid.appauth.RedirectUriReceiverActivity"
+        tools:node="replace"
+          android:exported="true">
+         <intent-filter>
+         <action android:name="android.intent.action.VIEW"/>
+         <category android:name="android.intent.category.DEFAULT"/>
+         <category android:name="android.intent.category.BROWSABLE"/>
+         <data  android:path="/Xo8WBi6jzSxKDVR4drqm84yr9iU="
+             android:scheme="msauth" android:host="com.msalrn" />
+         </intent-filter>
+         <intent-filter>
+         <action android:name="android.intent.action.VIEW"/>
+         <category android:name="android.intent.category.DEFAULT"/>
+         <category android:name="android.intent.category.BROWSABLE"/>
+         <data
+             android:path="/sJVrS8VPITLtYmSGP41hJl839nI="
+             android:scheme="msauth" android:host="com.msalrn.prod" />
+         </intent-filter>
+     </activity>
   </application>
 </manifest>

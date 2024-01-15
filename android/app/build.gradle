@@ -171,6 +171,10 @@ android {
                 }
             }
         }
+
+        manifestPlaceholders = [
+                appAuthRedirectScheme: 'io.identityserver.demo'
+        ]
     }
 
     if (isNewArchitectureEnabled()) {

@@ -1,53 +1,36 @@
-import PublicClientApplication, {MSALConfiguration} from 'react-native-msal';
-import MsalConfig from './android/app/src/main/assets/msal_config.json';
 import {
   loadAzureConfig,
   storeAzureConfig,
   removeAzureConfig,
 } from './oauthConfigStore';
+import {authorize, refresh, revoke} from 'react-native-app-auth';
 
-const allowedUsers = ['nbokaei1982@hotmail.com'];
-
-const AZURE_CLIENT_ID = MsalConfig.client_id;
 const redirectUri = __DEV__
   ? 'msauth://com.msalrn/Xo8WBi6jzSxKDVR4drqm84yr9iU%3D'
   : 'msauth://com.msalrn.prod/sJVrS8VPITLtYmSGP41hJl839nI%3D';
 
-// const scope = ['authorize'];
-// const url =`api://${AZURE_CLIENT_ID}/`;
-// const scope = [`${url}user.read`,`${url}openid`,`${url}profile`,`${url}offline_access`];
-const authorize = ['api://d5a97498-a9f0-4007-9f4a-d16592145e79/authorize'];
-const scope = ['user.read'];
+const tenantId = 'bf475492-067f-4d6e-989f-776b97a19cd9';
 
-console.log(redirectUri);
-const pca = new PublicClientApplication({
-  auth: {
-    clientId: MsalConfig.client_id,
-    redirectUri,
-    // authority: MsalConfig.redirect_uri,
-  },
-});
-
+const config = {
+  issuer: `https://login.microsoftonline.com/${tenantId}/v2.0`,
+  clientId: 'd5a97498-a9f0-4007-9f4a-d16592145e79',
+  redirectUrl: redirectUri,
+  scopes: ['user.read', 'openid', 'profile', 'email', 'offline_access'],
+};
 export default class Oauth {
   static async signInInteractively() {
-    const params = {
-      scopes: scope,
-    };
-
     try {
-      await pca.init();
-      const result = await pca.acquireToken(params);
+      const newAuthState = await authorize({
+        ...config,
+        connectionTimeoutSeconds: 5,
+        iosPrefersEphemeralSession: true,
+      });
+      console.log('Success to log in', newAuthState);
+      await storeAzureConfig(newAuthState);
 
-      // if (result && allowedUsers.includes(result.account.username)) {
-      console.log('Access granted', result);
-      await storeAzureConfig(result);
-
-      console.log(`signInInteractively: ${JSON.stringify(result)}`);
-      return result;
+      return newAuthState.accessToken;
     } catch (error) {
-      console.log(`signInInteractively: ${error}`);
-      // alert(`${error.message}`);
-
+      console.log('Failed to log in', error.message);
       return false;
     }
   }
@@ -65,57 +48,44 @@ export default class Oauth {
   }
 
   static async signInSilently() {
-    if (!global.azureAccount) {
+    if (!global.azureAccessToken) {
       await loadAzureConfig();
-
-      if (!global.azureAccount) {
+      if (!global.azureAccessToken) {
         console.log('signInSilently: No Azure account was acquired!');
         return false;
       }
     }
-    const params = {
-      scopes: scope,
-      account: global.azureAccount,
-      // forceRefresh: true,
-    };
 
     try {
-      await pca.init();
-      const result = await pca.acquireTokenSilent(params);
-      await storeAzureConfig(result);
-      console.log(`signInSilently: ${JSON.stringify(result)}`);
-      return result;
+      const newAuthState = await refresh(config, {
+        refreshToken: global?.refreshToken,
+      });
+      console.log('Success to refresh token', newAuthState);
+      await storeAzureConfig(newAuthState);
+      return newAuthState;
     } catch (error) {
-      console.log(`signInSilently`, error);
+      console.log('Failed to refresh token', error.message);
       return false;
     }
   }
 
   static async signOut() {
-    if (!global.azureAccount) {
+    if (!global.azureAccessToken) {
       await loadAzureConfig();
-
-      if (!global.azureAccount) {
+      if (!global.azureAccessToken) {
         console.log('signOut: No Azure account was acquired!');
         return false;
       }
     }
 
-    const params = {
-      account: global.azureAccount,
-      signoutFromBrowser: true,
-    };
-
-    console.log(global.azureAccount, 'here');
-
     try {
-      await pca.init();
-      const result = await pca.signOut(params);
-      // removeAzureConfig();
-      console.log(`signOut: ${JSON.stringify(result)}`);
+      const result = await revoke(config, {
+        tokenToRevoke: global.azureAccessToken,
+        sendClientId: true,
+      });
       return result;
     } catch (error) {
-      console.log(`signOut: ${error}`);
+      console.log('Failed to revoke token', error.message);
       return false;
     } finally {
       removeAzureConfig();

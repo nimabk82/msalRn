@@ -1,5 +1,11 @@
 import * as React from 'react';
 import {Linking, Pressable} from 'react-native';
+import {
+  authorize,
+  refresh,
+  revoke,
+  prefetchConfiguration,
+} from 'react-native-app-auth';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Text, View, Button} from 'react-native';
@@ -94,6 +100,7 @@ function LoginScreen({navigation, setIsLogeddin, isLogeddin}) {
     } else {
       // The Azure token wasn't retrieved yet, so
       // an interactive login will needed if internet is active
+      console.log('global.azureAccount');
 
       setTimeout(async () => {
         setLoading(true);
@@ -110,6 +117,7 @@ function LoginScreen({navigation, setIsLogeddin, isLogeddin}) {
       });
     }
   };
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Login Screen</Text>

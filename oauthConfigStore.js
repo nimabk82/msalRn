@@ -4,14 +4,16 @@ const AzureOAUTHStorageKey = 'azureOAUTH';
 
 export async function storeAzureConfig(result) {
   // Store account needed for token refresh and signOut
-  global.azureAccount = result.account;
+  // global.azureAccount = result.account;
   global.azureAccessToken = result.accessToken;
-  global.azureTokenExpirationDate = result.expiresOn * 1000;
+  global.azureRefreshToken = result.refreshToken;
+  global.azureTokenExpirationDate = result.accessTokenExpirationDate;
 
   // Store it also in the device storage
   const azureOAUTH = {
-    account: result.account,
+    // account: result.account,
     accessToken: result.accessToken,
+    refreshToken: result.refreshToken,
     expirationDate: global.azureTokenExpirationDate,
   };
 
@@ -19,15 +21,17 @@ export async function storeAzureConfig(result) {
 }
 
 export async function loadAzureConfig() {
+  console.log(global.azureAccessToken);
   if (!global.azureAccessToken) {
     // Azure config was already stored?
     try {
       const result = await AsyncStorage.getItem(AzureOAUTHStorageKey);
       if (result) {
         const azureOAUTH = JSON.parse(result);
-        global.azureAccount = azureOAUTH.account;
+        // global.azureAccount = azureOAUTH.account;
         global.azureAccessToken = azureOAUTH.accessToken;
-        global.azureTokenExpirationDate = azureOAUTH.expirationDate;
+        global.azureRefreshToken = azureOAUTH.refreshToken;
+        global.azureTokenExpirationDate = azureOAUTH.accessTokenExpirationDate;
 
         return true;
       }
@@ -41,8 +45,9 @@ export async function loadAzureConfig() {
 }
 
 export async function removeAzureConfig() {
-  global.azureAccount = null;
+  // global.azureAccount = null;
   global.azureAccessToken = null;
+  global.azureRefreshToken = null;
   global.azureTokenExpirationDate = null;
 
   await AsyncStorage.removeItem(AzureOAUTHStorageKey);
