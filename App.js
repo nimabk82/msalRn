@@ -26,8 +26,12 @@ function HomeScreen({navigation, setIsLogeddin}) {
     //   );
     //   return;
     // }
-    Linking.openURL(`https://purple-water-0475ec410.4.azurestaticapps.net`);
-    // Linking.openURL(`http://192.168.4.23:3002`);
+    Linking.openURL(
+      `https://purple-water-0475ec410.4.azurestaticapps.net/clientDetails/isDeeplinking/false/clientId/undefined/dob/1989%2F06%2F14/firstName/Nickolodium/lastName/Christopoplopolis`,
+    );
+    // Linking.openURL(
+    //   `http://192.168.4.23:3002/clientDetails/isDeeplinking/false/clientId/undefined/dob/1989%2F06%2F14/firstName/Nickolodium/lastName/Christopoplopolis`,
+    // );
     // https://login.microsoftonline.com/bf475492-067f-4d6e-989f-776b97a19cd9/oauth2/v2.0/authorize?client_id=d5a97498-a9f0-4007-9f4a-d16592145e79&scope=user.read%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fpurple-water-0475ec410.4.azurestaticapps.net%2F&client-request-id=faff24d2-91c9-46d6-b17a-a0904de40f0f&response_mode=fragment&response_type=code&x-client-SKU=msal.js.browser&x-client-VER=2.38.3&client_info=1&code_challenge=Vs7jCfD5_PAnYzRDW_j6ko1PzTWWZa_Ar1gXwXuWIrU&code_challenge_method=S256&nonce=cc9681ac-5f97-4fd8-8e46-54e7128a5080&state=eyJpZCI6IjM1NzNjNDEzLTg3NDItNDNjNi1iNGJlLTE2Zjg3MTJmN2U0MyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&claims=%7B%22access_token%22%3A%7B%22xms_cc%22%3A%7B%22values%22%3A%5B%22CP1%22%5D%7D%7D%7D
 
     // Linking.openURL(`https://login.live.com/`);
